@@ -43,29 +43,28 @@ INSTALLED_APPS = [
 
 # Import configure and initialize Sentry SDK
 import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
 
 sentry_sdk.init(
-    dsn="YOUR_DSN",
-    integrations=[DjangoIntegration()],
+    dsn="https://d655584d05f14c58b86e9034aab6817f@o447951.ingest.us.sentry.io/5461230",
     release=os.environ.get("VERSION"),
-    environment="Production"
+    environment="Production",
+    # Set traces_sample_rate to 1.0 to capture 100% of traces. 
+    # We recommend adjusting this value in production.
+    traces_sample_rate=1.0,
 )
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'corsheaders.middleware.CorsPostCsrfMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 #Configuration for 'corsheaders.middleware.CorsMiddleware'
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_REPLACE_HTTPS_REFERER = True
 
 from corsheaders.defaults import default_headers
 
